@@ -2,11 +2,11 @@ const showExpenseFormButton = document.getElementById('showExpenseForm');
 const contentDiv = document.getElementById('content');
 
 showExpenseFormButton.addEventListener('click', () => {
-  // Change the URL hash to "expense-form"
+  
   window.location.hash = 'expense-form';
 });
 
-// Check the hash when the page loads
+
 window.addEventListener('load', () => {
   if (window.location.hash === '#expense-form') {
     loadComponent('ExpenseForm.html');
@@ -14,7 +14,8 @@ window.addEventListener('load', () => {
 });
 
 function loadComponent(componentFile) {
-  contentDiv.innerHTML = ''; // Clear previous content
+  contentDiv.innerHTML = '';
+  
   fetch(componentFile)
     .then(response => response.text())
     .then(html => {
@@ -33,7 +34,7 @@ function loadComponent(componentFile) {
           if (description && amount) {
             const newExpense = { description, amount, date: currentDate };
 
-            // Handle the form submission and adding expense here
+            
             fetch('/api/expenses', {
               method: 'POST',
               headers: {
@@ -44,7 +45,7 @@ function loadComponent(componentFile) {
               .then(response => response.json())
               .then(data => {
                 console.log('Expense added:', data.message);
-                // Optionally, you can reload the Expense List component here
+                
               })
               .catch(error => {
                 console.error('Error adding expense:', error);
